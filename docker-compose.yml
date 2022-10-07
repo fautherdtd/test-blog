@@ -1,0 +1,52 @@
+version: "3.7"
+
+networks:
+    blog-network:
+        driver: bridge
+
+services:
+    blog-nginx:
+        restart: always
+        container_name: blog-nginx
+        build:
+            context: ./.docker/nginx
+            dockerfile: Dockerfile
+        depends_on:
+            - blog-php
+        ports:
+            - "83:80"
+        volumes:
+            - "./.:/app/"
+        networks:
+            - blog-network
+
+    blog-php:
+        restart: always
+        container_name: blog-php
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        depends_on:
+            - blog-postgres
+        env_file:
+            - ./.env
+        volumes:
+            - ".:/app"
+        networks:
+            - blog-network
+
+    blog-postgres:
+        restart: always
+        build:
+            context: ./.docker/pgsql
+            dockerfile: Dockerfile
+        container_name: blog-postgres
+        ports:
+            - "5435:5432"
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root
+        networks:
+            - blog-network
+        volumes:
+            - "./.data/database/postgres/data:/var/lib/postgresql/data"
