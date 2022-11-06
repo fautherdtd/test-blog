@@ -13,5 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Articles\ArticlesController::class, 'index']);
-Route::get('/news/{id}', [\App\Http\Controllers\Articles\ArticlesController::class, 'show']);
+Route::get('/article/show/{id}', [\App\Http\Controllers\Articles\ArticlesController::class, 'show']);

@@ -14,7 +14,7 @@ services:
         depends_on:
             - blog-php
         ports:
-            - "83:80"
+            - "81:80"
         volumes:
             - "./.:/app/"
         networks:
@@ -46,7 +46,7 @@ services:
         environment:
             - POSTGRES_USER=root
             - POSTGRES_PASSWORD=root
-        networks:
-            - blog-network
         volumes:
             - "./.data/database/postgres/data:/var/lib/postgresql/data"
+        networks:
+            - blog-network

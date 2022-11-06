@@ -2,34 +2,41 @@
 
 namespace App\Http\Controllers\Articles;
 
-use App\Http\Controllers\Controller;
+use App\Contracts\ArticlesContract;
 use App\Models\Articles;
+use Illuminate\Contracts\View\Factory;
 
-class ArticlesController extends Controller
+
+class ArticlesController
 {
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function index()
     {
-        $articles = Articles::all();
-        return view('index', [
-            'items' => $articles
-        ]);
     }
 
-
-    public function show(int $id)
+    public function reviewAdd()
     {
-        $item = Articles::find($id);
-        Articles::where('id', $id)
-            ->update([
-                'view' => $item->view + 1
-            ]);
 
+    }
+
+    public function create()
+    {
+    }
+
+    public function show(int $id): Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        $article = Articles::find($id);
         return view('show', [
-            'item' => $item
+            'item' => $article
         ]);
     }
+
+    public function update()
+    {
+    }
+
+    public function delete()
+    {
+    }
+
 }
